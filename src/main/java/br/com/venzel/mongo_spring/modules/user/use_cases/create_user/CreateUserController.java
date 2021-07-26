@@ -1,0 +1,29 @@
+package br.com.venzel.mongo_spring.modules.user.use_cases.create_user;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.venzel.mongo_spring.modules.user.dtos.UserDTO;
+import br.com.venzel.mongo_spring.modules.user.dtos.UserInputDTO;
+
+@RestController
+@RequestMapping("/users")
+public class CreateUserController {
+    
+    @Autowired
+    private CreateUserService service;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDTO handle(@RequestBody UserInputDTO userInputDTO) {
+        
+        UserDTO users = service.execute(userInputDTO);
+
+        return users;
+    }
+}
